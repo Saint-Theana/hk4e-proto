@@ -1,0 +1,203 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "./;proto";
+
+
+import "define.proto";
+
+message ShopGoods {
+  uint32 discount_end_time = 655; //258
+  uint32 min_level = 14; //8
+  uint32 end_time = 15; //11
+  repeated ItemParam cost_item_list = 7; //3
+  uint32 secondary_sheet_id = 363; //318
+  uint32 hcoin = 13; //1
+  uint32 mcoin = 5; //14
+  uint32 discount_id = 182; //1998
+  uint32 single_limit = 424; //247
+  uint32 goods_id = 2; //13
+  uint32 next_refresh_time = 1; //7
+  uint32 max_level = 3; //4
+  uint32 disable_type = 9; //6
+  uint32 discount_begin_time = 636; //574
+  repeated uint32 pre_goods_id_list = 12; //2
+  uint32 begin_time = 8; //5
+  uint32 scoin = 11; //15
+  uint32 bought_num = 4; //10
+  uint32 buy_limit = 10; //12
+  ItemParam goods_item = 6; //9
+}
+
+message Shop {
+  repeated ShopConcertProduct concert_product_list = 13; //3
+  repeated ShopGoods goods_list = 15; //15
+  uint32 city_reputation_level = 4; //2
+  repeated ShopCardProduct card_product_list = 9; //14
+  repeated ShopMcoinProduct mcoin_product_list = 6; //7
+  uint32 next_refresh_time = 14; //11
+  uint32 city_id = 10; //10
+  uint32 shop_type = 5; //13
+}
+
+message GetShopReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 705; //772;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  uint32 shop_type = 5; //13
+}
+
+message GetShopRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 755; //798;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  Shop shop = 10; //11
+  int32 retcode = 13; //2
+}
+
+message BuyGoodsReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 787; //712;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  uint32 buy_count = 14; //14
+  ShopGoods goods = 3; //15
+  uint32 shop_type = 5; //7
+}
+
+message BuyGoodsRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 798; //735;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  uint32 buy_count = 2; //14
+  ShopGoods goods = 1; //12
+  uint32 shop_type = 14; //11
+  int32 retcode = 5; //2
+  repeated ShopGoods goods_list = 7; //5
+}
+
+message GetShopmallDataReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 720; //707;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+}
+
+message GetShopmallDataRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 774; //721;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  repeated uint32 shop_type_list = 10; //15
+  int32 retcode = 3; //3
+}
+
+message ActivityShopSheetInfo {
+  uint32 end_time = 12; //1
+  uint32 begin_time = 5; //12
+  uint32 sheet_id = 14; //2
+}
+
+message GetActivityShopSheetInfoReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 780; //703;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  uint32 shop_type = 14; //7
+}
+
+message GetActivityShopSheetInfoRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 770; //790;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  repeated ActivityShopSheetInfo sheet_info_list = 10; //6
+  uint32 shop_type = 7; //8
+  int32 retcode = 5; //13
+}
+
+message BuyGoodsParam {
+  uint32 buy_count = 3; //12
+  ShopGoods goods = 8; //13
+}
+
+message BatchBuyGoodsReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 762; //773;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  uint32 shop_type = 3; //7
+  repeated BuyGoodsParam buy_goods_list = 5; //2
+}
+
+message BatchBuyGoodsRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 714; //799;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  repeated ShopGoods goods_list = 11; //9
+  int32 retcode = 5; //1
+  repeated BuyGoodsParam buy_goods_list = 3; //5
+  uint32 shop_type = 14; //14
+}
+
+enum ShopGoodsDisableType {
+  SHOP_GOODS_DISABLE_NONE = 0;
+  SHOP_GOODS_DISABLE_TALENT_FULL = 1;
+  SHOP_GOODS_DISABLE_FURNITURE_FORMULA_UNLOCKED = 2;
+  SHOP_GOODS_DISABLE_COSTUME_UNLOCKED = 3;
+  SHOP_GOODS_DISABLE_BGM_UNLOCKED = 4;
+  SHOP_GOODS_DISABLE_GCG_CARD_EXCEED = 5;
+  SHOP_GOODS_DISABLE_GCG_CARD_FACE_UNLOCKED = 6;
+  SHOP_GOODS_DISABLE_GCG_CARD_BACK_UNLOCKED = 7;
+  SHOP_GOODS_DISABLE_GCG_FIELD_UNLOCKED = 8;
+}
+

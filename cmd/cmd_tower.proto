@@ -1,0 +1,369 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "./;proto";
+
+
+import "define.proto";
+
+message TowerTeam {
+  uint32 tower_team_id = 10; //3
+  repeated uint64 avatar_guid_list = 4; //14
+}
+
+message TowerLevelRecord {
+  repeated uint32 satisfied_cond_list = 7; //13
+  uint32 level_id = 11; //10
+}
+
+message TowerFloorRecord {
+
+  uint32 floor_star_reward_progress = 4; //15
+  map<uint32, uint32> passed_level_map = 6; //8
+  uint32 floor_id = 15; //12
+  repeated TowerLevelRecord passed_level_record_list = 7; //2
+}
+
+message TowerCurLevelRecord {
+  repeated TowerTeam tower_team_list = 13; //8
+  bool is_empty = 7; //6
+  repeated uint32 buff_id_list = 12; //4
+  bool is_upper_part = 1; //2
+  uint32 cur_level_index = 14; //1
+  uint32 cur_floor_id = 9; //15
+}
+
+message TowerBriefDataNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2405; //2472;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  uint32 total_star_num = 5; //11
+  uint32 last_floor_index = 4; //8
+  uint32 schedule_start_time = 13; //15
+  uint32 next_schedule_change_time = 12; //6
+  bool is_finished_entrance_floor = 2; //14
+  uint32 last_level_index = 14; //4
+  uint32 tower_schedule_id = 3; //5
+}
+
+message TowerFloorRecordChangeNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2455; //2498;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  bool is_finished_entrance_floor = 11; //11
+  repeated TowerFloorRecord tower_floor_record_list = 12; //8
+}
+
+message TowerCurLevelRecordChangeNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2487; //2412;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  TowerCurLevelRecord cur_level_record = 5; //10
+}
+
+message TowerDailyRewardProgressChangeNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2498; //2435;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  uint32 daily_floor_id = 3; //15
+  uint32 daily_level_index = 4; //9
+}
+
+message TowerTeamSelectReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2474; //2421;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  repeated TowerTeam tower_team_list = 1; //11
+  uint32 floor_id = 11; //10
+}
+
+message TowerTeamSelectRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2480; //2403;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  int32 retcode = 6; //8
+}
+
+message TowerAllDataReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2470; //2490;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  bool is_interact = 15; //2
+}
+
+message TowerMonthlyBrief {
+  uint32 tower_schedule_id = 7; //15
+  uint32 best_floor_index = 8; //6
+  uint32 best_level_index = 11; //3
+  uint32 total_star_count = 14; //12
+}
+
+message TowerAllDataRsp {
+
+
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2462; //2473;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  uint32 tower_schedule_id = 9; //10
+  uint32 daily_level_index = 7; //9
+  map<uint32, uint32> skip_floor_granted_reward_item_map = 11; //12
+  bool is_first_interact = 8; //3
+  bool is_finished_entrance_floor = 2; //1
+  repeated TowerFloorRecord tower_floor_record_list = 6; //5
+  uint32 daily_floor_id = 14; //11
+  uint32 commemorative_reward_id = 3; //13
+  TowerMonthlyBrief last_schedule_monthly_brief = 1482; //1222
+  uint32 next_schedule_change_time = 15; //6
+  uint32 valid_tower_record_num = 5; //7
+  uint32 skip_to_floor_index = 10; //2
+  map<uint32, uint32> floor_open_time_map = 12; //4
+  TowerCurLevelRecord cur_level_record = 1; //15
+  int32 retcode = 4; //8
+  uint32 schedule_start_time = 591; //914
+  TowerMonthlyBrief monthly_brief = 13; //14
+}
+
+message TowerEnterLevelReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2424; //2431;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  uint32 enter_point_id = 9; //3
+}
+
+message TowerEnterLevelRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2429; //2475;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  repeated uint32 tower_buff_id_list = 6; //10
+  int32 retcode = 3; //1
+  uint32 level_index = 15; //14
+  uint32 floor_id = 11; //5
+}
+
+message TowerBuffSelectReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2478; //2448;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  uint32 tower_buff_id = 12; //5
+}
+
+message TowerBuffSelectRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2416; //2497;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  int32 retcode = 13; //11
+  uint32 tower_buff_id = 6; //13
+}
+
+message TowerSurrenderReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2492; //2422;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+}
+
+message TowerSurrenderRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2488; //2465;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  int32 retcode = 2; //9
+}
+
+message TowerGetFloorStarRewardReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2425; //2404;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  uint32 floor_id = 11; //15
+}
+
+message TowerGetFloorStarRewardRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2458; //2493;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  int32 retcode = 11; //11
+  uint32 floor_id = 12; //9
+}
+
+message TowerLevelEndNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2445; //2495;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  enum ContinueStateType {
+    CONTINUE_STATE_CAN_NOT_CONTINUE = 0;
+    CONTINUE_STATE_CAN_ENTER_NEXT_LEVEL = 1;
+    CONTINUE_STATE_CAN_ENTER_NEXT_FLOOR = 2;
+  }
+
+  uint32 next_floor_id = 12; //4
+  repeated ItemParam reward_item_list = 8; //12
+  uint32 continue_state = 6; //15
+  bool is_success = 15; //5
+  repeated uint32 finished_star_cond_list = 9; //6
+}
+
+message TowerLevelStarCondData {
+  bool is_fail = 1; //15
+  uint32 cond_value = 5; //9
+  bool is_pause = 2; //13
+  uint32 star_cond_index = 8; //6
+}
+
+message TowerLevelStarCondNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2485; //2406;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  uint32 level_index = 4; //14
+  uint32 floor_id = 13; //11
+  repeated TowerLevelStarCondData cond_data_list = 15; //9
+}
+
+message TowerMiddleLevelChangeTeamNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2451; //2434;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+}
+
+message TowerFightRecordPair {
+  uint32 avatar_id = 15; //1
+  uint32 data = 12; //3
+}
+
+message TowerMonthlyCombatRecord {
+  TowerFightRecordPair most_kill_avatar_pair = 4; //14
+  TowerFightRecordPair most_cast_normal_skill_avatar_pair = 11; //8
+  repeated TowerFightRecordPair most_reveal_avatar_list = 7; //6
+  TowerFightRecordPair most_cast_energy_skill_avatar_pair = 1; //4
+  TowerFightRecordPair highest_dps_avatr_pair = 10; //12
+  TowerFightRecordPair most_take_damage_avatar_pair = 8; //9
+}
+
+message TowerMonthlyDetail {
+  TowerMonthlyCombatRecord monthly_combat_record = 1; //2
+  TowerMonthlyBrief monthly_brief = 5; //12
+}
+
+message TowerRecordHandbookReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2442; //2450;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+}
+
+message TowerRecordHandbookRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2450; //2443;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  int32 retcode = 12; //7
+  repeated TowerMonthlyDetail monthly_detail_list = 8; //14
+}
+

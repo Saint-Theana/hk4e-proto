@@ -1,0 +1,205 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "./;proto";
+
+
+import "define.proto";
+
+message MechanicusInfo {
+  repeated Uint32Pair gear_level_pair_list = 6; //14
+  repeated uint32 open_sequence_id_list = 12; //7
+  uint32 coin = 8; //8
+  uint32 punish_over_time = 10; //12
+  uint32 mechanicus_id = 14; //10
+  repeated uint32 finish_difficult_level_list = 7; //13
+  bool is_finish_teach_dungeon = 3; //4
+}
+
+message GetMechanicusInfoReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 3905; //3972;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+}
+
+message GetMechanicusInfoRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 3955; //3998;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  int32 retcode = 12; //14
+  MechanicusInfo mechanicus_info = 1; //15
+}
+
+message MechanicusSequenceOpenNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 3987; //3912;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  uint32 mechanicus_id = 5; //8
+  uint32 sequence_id = 4; //7
+}
+
+message MechanicusCoinNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 3998; //3935;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  uint32 mechanicus_id = 8; //7
+  uint32 coin = 13; //4
+}
+
+message MechanicusOpenNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 3920; //3907;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  uint32 mechanicus_id = 2; //2
+}
+
+message MechanicusCloseNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 3974; //3921;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  uint32 mechanicus_id = 12; //6
+}
+
+message MechanicusUnlockGearReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 3980; //3903;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  uint32 mechanicus_id = 13; //7
+  uint32 gear_id = 1; //6
+}
+
+message MechanicusUnlockGearRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 3970; //3990;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  int32 retcode = 2; //3
+  uint32 mechanicus_id = 13; //8
+  uint32 gear_id = 9; //14
+}
+
+message MechanicusLevelupGearReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 3962; //3973;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  uint32 gear_id = 10; //14
+  uint32 mechanicus_id = 6; //12
+}
+
+message MechanicusLevelupGearRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 3914; //3999;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  uint32 gear_id = 10; //7
+  uint32 mechanicus_id = 1; //2
+  uint32 after_gear_level = 9; //12
+  int32 retcode = 5; //8
+}
+
+message EnterMechanicusDungeonReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 3924; //3931;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  uint32 difficult_level = 10; //7
+}
+
+message EnterMechanicusDungeonRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 3929; //3975;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  uint32 wrong_uid = 14; //12
+  uint32 difficult_level = 6; //13
+  int32 retcode = 8; //6
+  uint32 dungeon_id = 9; //11
+}
+
+message MechanicusCandidateTeamCreateReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 3913; //3981;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  uint32 difficult_level = 9; //6
+}
+
+message MechanicusCandidateTeamCreateRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 3969; //3905;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  uint32 dungeon_id = 15; //1
+  int32 retcode = 10; //7
+  uint32 difficult_level = 4; //10
+}
+

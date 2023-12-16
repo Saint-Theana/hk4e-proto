@@ -1,0 +1,102 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "./;proto";
+
+
+import "define.proto";
+
+message Achievement {
+  enum Status {
+    INVALID = 0;
+    UNFINISHED = 1;
+    FINISHED = 2;
+    REWARD_TAKEN = 3;
+  }
+
+  uint32 finish_timestamp = 6; //11
+  Status status = 5; //13
+  uint32 cur_progress = 10; //12
+  uint32 id = 13; //14
+  uint32 total_progress = 14; //8
+}
+
+message AchievementAllDataNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2688; //2676;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  repeated Achievement achievement_list = 4; //4
+  repeated uint32 reward_taken_goal_id_list = 8; //2
+}
+
+message AchievementUpdateNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2695; //2668;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  repeated Achievement achievement_list = 4; //14
+}
+
+message TakeAchievementRewardReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2696; //2675;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  repeated uint32 id_list = 10; //13
+}
+
+message TakeAchievementRewardRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2691; //2657;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  repeated uint32 id_list = 4; //7
+  repeated ItemParam item_list = 7; //10
+  int32 retcode = 13; //1
+}
+
+message TakeAchievementGoalRewardReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2669; //2652;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  repeated uint32 id_list = 7; //5
+}
+
+message TakeAchievementGoalRewardRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2693; //2681;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  int32 retcode = 14; //15
+  repeated uint32 id_list = 15; //12
+  repeated ItemParam item_list = 6; //5
+}
+

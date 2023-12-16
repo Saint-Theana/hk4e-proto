@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "./;proto";
+
+
+import "define.proto";
+
+message RegionalPlayVar {
+  uint32 type = 8; //15
+  float max_value = 15; //11
+  float value = 12; //3
+  float base_value = 4; //10
+}
+
+message RegionalPlayInfoNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 6288; //6276;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  repeated RegionalPlayVar var_list = 11; //5
+  string play_name = 8; //9
+  bool is_enabled = 2; //15
+  uint32 play_type = 14; //7
+  bool is_in_region = 7; //4
+}
+
+message DeathZoneInfo {
+  bool is_open = 15; //9
+  uint32 id = 6; //14
+}
+
+message DeathZoneInfoNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 6295; //6268;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  repeated DeathZoneInfo death_zone_info_list = 3; //8
+}
+
+message PlayerDeathZoneNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 6296; //6275;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  uint32 cur_death_zone_id = 11; //8
+}
+

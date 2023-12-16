@@ -1,0 +1,402 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "./;proto";
+
+
+import "define.proto";
+import "cmd/cmd_social.proto";
+
+message KeepAliveNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 5; //72;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+}
+
+message GmTalkReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 55; //98;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  string msg = 7; //13
+}
+
+message GmTalkRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 87; //12;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  int32 retcode = 7; //15
+  string retmsg = 3; //3
+  string msg = 5; //13
+}
+
+message MsgParam {
+  oneof param {
+    uint32 int_param = 10; //9
+    float flt_param = 7; //7
+    string str_param = 15; //4
+  }
+}
+
+message ShowMessageNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 98; //35;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  SvrMsgId msg_id = 7; //14
+  repeated MsgParam params = 5; //13
+}
+
+message PingReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 20; //7;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  uint32 client_time = 8; //12
+  float ue_time = 15; //14
+  double total_tick_time = 4; //6
+  bytes sc_data = 13; //10
+  uint32 seq = 11; //3
+}
+
+message PingRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 74; //21;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  uint32 client_time = 1; //15
+  int32 retcode = 11; //6
+  uint32 seq = 4; //13
+}
+
+message GetOnlinePlayerListReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 70; //90;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+}
+
+message GetOnlinePlayerListRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 62; //73;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  int32 retcode = 5; //7
+  uint32 param = 14; //11
+  repeated OnlinePlayerInfo player_info_list = 9; //5
+}
+
+message ServerTimeNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 14; //99;
+    ENET_CHANNEL_ID = 1;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  uint64 server_time = 12; //5
+}
+
+message ServerLogNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 24; //31;
+    ENET_CHANNEL_ID = 1;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  string server_log = 10; //7
+  ServerLogType log_type = 9; //9
+  ServerLogLevel log_level = 15; //15
+}
+
+message ClientReconnectNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 29; //75;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  ClientReconnectReason reason = 1; //6
+}
+
+message RobotPushPlayerDataNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 16; //97;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  bytes bin = 6; //6
+}
+
+message ClientReportNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 13; //81;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  string report_type = 12; //1
+  string report_value = 7; //4
+}
+
+message UnionCmd {
+  bytes body = 5; //14
+  uint32 message_id = 3; //8
+}
+
+message UnionCmdNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 69; //5;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  repeated UnionCmd cmd_list = 11; //1
+}
+
+message GetOnlinePlayerInfoReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 6; //82;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  bool is_online_id = 3; //15
+  oneof player_id {
+    uint32 target_uid = 4; //9
+    string online_id = 10; //7
+    string psn_id = 12; //2
+  }
+}
+
+message GetOnlinePlayerInfoRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 39; //47;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  int32 retcode = 14; //11
+  uint32 target_uid = 3; //7
+  uint32 param = 10; //4
+  OnlinePlayerInfo target_player_info = 11; //14
+}
+
+message SegmentInfo {
+  uint32 offset = 9; //3
+  uint32 module = 12; //7
+  uint32 size = 6; //8
+}
+
+message SegmentCRCInfo {
+  uint32 module = 14; //13
+  int32 retcode = 10; //5
+  uint32 size = 8; //10
+  string crc = 12; //3
+  uint32 offset = 5; //11
+}
+
+message CheckSegmentCRCNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 46; //39;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  repeated SegmentInfo info_list = 9; //6
+}
+
+message CheckSegmentCRCReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 100; //53;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  repeated SegmentCRCInfo info_list = 1; //1
+}
+
+message PlayerRTTInfo {
+  uint32 rtt = 7; //2
+  uint32 uid = 13; //1
+}
+
+message WorldPlayerRTTNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 92; //22;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  repeated PlayerRTTInfo player_rtt_list = 2; //1
+}
+
+message EchoNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 88; //65;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  uint32 seq_id = 3; //4
+  string content = 4; //9
+}
+
+message UpdateRedPointNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 58; //93;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  repeated RedPointData red_point_list = 8; //12
+}
+
+message ClientBulletCreateNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 25; //4;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  uint32 param = 3; //6
+}
+
+message ChangeServerGlobalValueNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 18; //27;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  uint32 entity_id = 2; //4
+}
+
+message GmTalkNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 75; //94;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  string msg = 2; //5
+}
+
+message LastPacketPrintNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 28; //88;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+}
+
+enum SvrMsgId {
+  MSG_UNKNOWN = 0;
+  MSG_BLOCK_REFRESH_COUNTDOWN = 1;
+  MSG_AVATAR_REVIVE_BY_STATUE = 2;
+  MSG_DAILY_TASK_REWARD_MAX_NUM = 3;
+  MSG_ROUTINE_TYPE_NOT_OPEN = 4;
+  MSG_ROUTINE_TYPE_REWARD_MAX_NUM = 5;
+  MSG_MECHANICUS_COIN_LIMIT = 6;
+}
+
+enum ServerLogType {
+  SERVER_LOG_NONE = 0;
+  SERVER_LOG_ABILITY = 1;
+  SERVER_LOG_LEVEL = 2;
+  SERVER_LOG_ENTITY = 3;
+  SERVER_LOG_LUA = 4;
+}
+
+enum ServerLogLevel {
+  LOG_LEVEL_NONE = 0;
+  LOG_LEVEL_DEBUG = 1;
+  LOG_LEVEL_INFO = 2;
+  LOG_LEVEL_WARNING = 3;
+  LOG_LEVEL_ERROR = 4;
+}
+
+enum ClientReconnectReason {
+  CLIENT_RECONNNECT_NONE = 0;
+  CLIENT_RECONNNECT_QUIT_MP = 1;
+}
+

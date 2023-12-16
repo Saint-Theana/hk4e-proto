@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "./;proto";
+
+
+message OpActivityInfo {
+  uint32 activity_id = 15; //2
+  uint32 end_time = 10; //6
+  uint32 begin_time = 8; //5
+  bool is_has_change = 3; //1
+  uint32 schedule_id = 1; //13
+  oneof detail {
+    BonusOpActivityInfo bonus_info = 11; //12
+  }
+}
+
+message BonusOpActivityInfo {
+  uint32 left_bonus_count = 13; //11
+}
+
+message GetOpActivityInfoReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 5105; //5172;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+}
+
+message GetOpActivityInfoRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 5155; //5198;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  int32 retcode = 14; //10
+  repeated OpActivityInfo op_activity_info_list = 11; //7
+}
+
+message OpActivityDataNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 5187; //5112;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  repeated OpActivityInfo op_activity_info_list = 13; //15
+}
+
+message OpActivityUpdateNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 5198; //5135;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  OpActivityInfo op_activity_info = 15; //6
+}
+

@@ -1,0 +1,164 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "./;proto";
+
+
+import "define.proto";
+
+message OpActivityTagBriefInfo {
+  uint32 config_id = 10; //2
+  bool has_reward = 11; //3
+  uint32 op_activity_type = 3; //11
+}
+
+message OpActivityStateNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2505; //2572;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  repeated uint32 finished_bonus_activity_id_list = 11; //14
+  repeated OpActivityTagBriefInfo opened_op_activity_info_list = 3; //13
+}
+
+message SignInData {
+  uint32 day_count = 3; //14
+  repeated ItemParam reward_item_list = 1; //5
+}
+
+message SignInInfo {
+  bool is_cond_satisfied = 13; //7
+  repeated uint32 reward_day_list = 7; //15
+  repeated SignInData signin_data_list = 14; //12
+  uint32 config_id = 2; //8
+  uint32 sign_in_count = 5; //2
+  uint32 schedule_id = 1; //3
+  uint32 end_time = 12; //13
+  uint32 last_sign_in_time = 4; //6
+  uint32 begin_time = 8; //5
+}
+
+message SignInInfoReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2587; //2512;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+}
+
+message SignInInfoRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2598; //2535;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  repeated SignInInfo sign_in_info_list = 1; //1
+  int32 retcode = 15; //11
+}
+
+message GetSignInRewardReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2520; //2507;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  uint32 schedule_id = 13; //10
+  uint32 reward_day = 8; //3
+}
+
+message GetSignInRewardRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2574; //2521;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  int32 retcode = 7; //1
+  SignInInfo sign_in_info = 13; //14
+}
+
+message BonusActivityInfo {
+  uint32 bonus_activity_id = 5; //6
+  uint32 state = 4; //3
+}
+
+message BonusActivityUpdateNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2529; //2575;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  repeated BonusActivityInfo bonus_activity_info_list = 8; //8
+}
+
+message BonusActivityInfoReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2578; //2548;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+}
+
+message BonusActivityInfoRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2516; //2597;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  repeated BonusActivityInfo bonus_activity_info_list = 13; //2
+  int32 retcode = 12; //7
+}
+
+message GetBonusActivityRewardReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2513; //2581;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  uint32 bonus_activity_id = 2; //14
+}
+
+message GetBonusActivityRewardRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 2569; //2505;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  BonusActivityInfo bonus_activity_info_list = 9; //4
+  int32 retcode = 15; //13
+}
+

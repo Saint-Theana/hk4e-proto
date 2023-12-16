@@ -1,0 +1,116 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "./;proto";
+
+
+import "define.proto";
+
+message NpcTalkReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 505; //572;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  uint32 entity_id = 11; //8
+  uint32 npc_entity_id = 9; //9
+  uint32 talk_id = 15; //7
+}
+
+message NpcTalkRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 555; //598;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  uint32 cur_talk_id = 1; //9
+  uint32 npc_entity_id = 11; //6
+  int32 retcode = 5; //3
+  uint32 entity_id = 9; //13
+}
+
+message GetSceneNpcPositionReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 598; //535;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  repeated uint32 npc_id_list = 1; //6
+  uint32 scene_id = 8; //8
+}
+
+message GetSceneNpcPositionRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 520; //507;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  int32 retcode = 3; //10
+  repeated NpcPositionInfo npc_info_list = 6; //14
+  uint32 scene_id = 13; //4
+}
+
+message MetNpcIdListNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 574; //521;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  repeated uint32 npc_first_met_id_list = 9; //9
+}
+
+message MeetNpcReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 580; //503;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  uint32 npc_id = 9; //4
+}
+
+message MeetNpcRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 570; //590;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  int32 retcode = 14; //14
+  uint32 npc_first_met_id = 12; //8
+}
+
+message FinishedTalkIdListNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 562; //573;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  repeated uint32 finished_talk_id_list = 10; //1
+}
+

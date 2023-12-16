@@ -1,0 +1,231 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "./;proto";
+
+
+import "define.proto";
+
+message Investigation {
+  enum State {
+    INVALID = 0;
+    IN_PROGRESS = 1;
+    COMPLETE = 2;
+    REWARD_TAKEN = 3;
+  }
+
+  uint32 total_progress = 14; //5
+  State state = 4; //2
+  uint32 progress = 11; //13
+  uint32 id = 5; //9
+}
+
+message InvestigationTarget {
+  enum State {
+    INVALID = 0;
+    IN_PROGRESS = 1;
+    COMPLETE = 2;
+    REWARD_TAKEN = 3;
+  }
+
+  uint32 quest_id = 3; //15
+  State state = 7; //2
+  uint32 progress = 15; //8
+  uint32 total_progress = 1; //7
+  uint32 investigation_id = 13; //3
+}
+
+message PlayerInvestigationAllInfoNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1917; //1928;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  repeated Investigation investigation_list = 2; //15
+  repeated InvestigationTarget investigation_target_list = 6; //12
+}
+
+message TakeInvestigationRewardReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1921; //1912;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  uint32 id = 15; //5
+}
+
+message TakeInvestigationRewardRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1920; //1922;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  int32 retcode = 15; //4
+  uint32 id = 13; //12
+}
+
+message TakeInvestigationTargetRewardReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1918; //1918;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  uint32 quest_id = 11; //11
+}
+
+message TakeInvestigationTargetRewardRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1923; //1916;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  int32 retcode = 1; //1
+  uint32 quest_id = 6; //2
+}
+
+message GetInvestigationMonsterReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1915; //1901;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  repeated uint32 city_id_list = 1; //3
+  bool is_for_mark = 4; //4
+}
+
+message InvestigationMonster {
+  enum LockState {
+    LOCK_NONE = 0;
+    LOCK_QUEST = 1;
+  }
+
+  bool is_alive = 14; //9
+  uint32 refresh_interval = 6; //3
+  uint32 id = 15; //13
+  uint32 level = 3; //5
+  uint32 boss_chest_num = 12; //1
+  WeeklyBossResinDiscountInfo weekly_boss_resin_discount_info = 8; //12
+  uint32 monster_id = 1493; //301
+  Vector pos = 4; //14
+  uint32 resin = 9; //8
+  uint32 max_boss_chest_num = 11; //4
+  uint32 next_refresh_time = 1; //11
+  uint32 group_id = 80; //285
+  uint32 scene_id = 13; //10
+  bool is_area_locked = 5; //15
+  LockState lock_state = 2; //2
+  uint32 next_boss_chest_refresh_time = 10; //7
+  uint32 city_id = 7; //6
+}
+
+message GetInvestigationMonsterRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1927; //1910;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  repeated InvestigationMonster monster_list = 2; //10
+  int32 retcode = 6; //1
+  bool is_for_mark = 11; //2
+}
+
+message PlayerInvestigationNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1911; //1911;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  repeated Investigation investigation_list = 12; //1
+}
+
+message PlayerInvestigationTargetNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1930; //1929;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  repeated InvestigationTarget investigation_target_list = 12; //1
+}
+
+message MarkTargetInvestigationMonsterNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1913; //1915;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  uint32 scene_id = 14; //11
+  uint32 monster_id = 12; //4
+  uint32 group_id = 15; //5
+  uint32 investigation_monster_id = 2; //12
+}
+
+message InvestigationMonsterUpdateNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1919; //1906;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  InvestigationMonster investigation_monster = 15; //5
+}
+
+message InvestigationQuestDailyNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1910; //1921;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+}
+
+message InvestigationReadQuestDailyNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1906; //1902;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+}
+

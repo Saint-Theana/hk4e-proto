@@ -1,0 +1,210 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "./;proto";
+
+
+import "define.proto";
+
+message MailChangeNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1455; //1498;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  repeated MailData mail_list = 5; //14
+  repeated uint32 del_mail_id_list = 4; //8
+}
+
+message ReadMailNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1487; //1412;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  repeated uint32 mail_id_list = 15; //2
+}
+
+message GetMailItemReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1498; //1435;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  repeated uint32 mail_id_list = 4; //6
+}
+
+message GetMailItemRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1420; //1407;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  int32 retcode = 12; //7
+  repeated uint32 mail_id_list = 6; //3
+  repeated EquipParam item_list = 9; //2
+}
+
+message DelMailReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1474; //1421;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  repeated uint32 mail_id_list = 13; //12
+}
+
+message DelMailRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1480; //1403;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  int32 retcode = 7; //11
+  repeated uint32 mail_id_list = 9; //5
+}
+
+message GetAuthkeyReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1470; //1490;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  string auth_appid = 14; //14
+  uint32 sign_type = 8; //7
+  uint32 authkey_ver = 6; //13
+}
+
+message GetAuthkeyRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1462; //1473;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  string auth_appid = 11; //4
+  uint32 sign_type = 3; //15
+  int32 retcode = 14; //6
+  uint32 authkey_ver = 7; //9
+  string game_biz = 1; //11
+  string authkey = 9; //3
+}
+
+message ClientNewMailNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1414; //1499;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  uint32 not_read_num = 3; //7
+  uint32 not_got_attachment_num = 11; //2
+}
+
+message GetAllMailReq {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1424; //1431;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  bool is_collected = 8; //7
+}
+
+message GetAllMailRsp {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1429; //1475;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  int32 retcode = 9; //8
+  repeated MailData mail_list = 7; //14
+  bool is_collected = 5; //1
+  bool is_truncated = 8; //2
+}
+
+message ChangeMailStarNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1478; //1448;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  bool is_star = 12; //14
+  repeated uint32 mail_id_list = 11; //2
+}
+
+message GetAllMailNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1416; //1497;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+    IS_ALLOW_CLIENT = 1;
+  }
+
+  bool is_collected = 11; //13
+}
+
+message GetAllMailResultNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 1413; //1481;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  string transaction = 15; //9
+  repeated MailData mail_list = 1; //5
+  uint32 page_index = 6; //11
+  uint32 total_page_count = 7; //4
+  bool is_collected = 12; //7
+  int32 retcode = 8; //14
+}
+
+enum AuthkeySignType {
+  AUTHKEY_SIGN_TYPE_NONE = 0;
+  AUTHKEY_SIGN_TYPE_DEFAULT = 1;
+  AUTHKEY_SIGN_TYPE_RSA = 2;
+}
+

@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "./;proto";
+
+
+import "define.proto";
+
+message GroupLinkBundle {
+  Vector center = 6; //4
+  bool is_activated = 7; //12
+  uint32 bundle_id = 9; //3
+  bool is_show_mark = 12; //14
+  uint32 scene_id = 8; //5
+  uint32 radius = 13; //1
+}
+
+message GroupLinkAllNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 5788; //5776;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  repeated GroupLinkBundle bundle_list = 15; //5
+}
+
+message GroupLinkChangeNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 5795; //5768;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  GroupLinkBundle bundle = 2; //8
+}
+
+message GroupLinkDeleteNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 5796; //5775;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  uint32 bundle_id = 13; //12
+}
+
+message GroupLinkMarkUpdateNotify {
+  enum CmdId {
+    option allow_alias = true;
+    NONE = 0;
+    CMD_ID = 5791; //5757;
+    ENET_CHANNEL_ID = 0;
+    ENET_IS_RELIABLE = 1;
+  }
+
+  GroupLinkBundle bundle = 7; //11
+}
+
